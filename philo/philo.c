@@ -6,13 +6,16 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 19:29:38 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 19:32:40 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*while (philo alive)
+void *routine(void *args)
+{
+	//(t_arguments *)args;
+	/*while (philo alive)
 {
 	keep thinking until both forks are free
 	if (philo is still alive)
@@ -20,12 +23,7 @@
 	else
 		->stop
 	sleep
-}*/
-
-void *routine(void *args)
-{
-	//(t_arguments *)args;
-	return ((void *)args);
+}*/	
 }
 int	main(int argc, char *argv[])
 {
