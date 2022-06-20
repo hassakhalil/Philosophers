@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 21:27:05 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 21:33:42 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void *routine(void *args)
 	return ((void *)args);
 	/*while (philo alive)
 {
-	keep thinking until both forks are free
+	keep thinking until both forks are free (use mutex!!!!)
 	if (philo is still alive)
 		->eat
 	else
