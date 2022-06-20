@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 21:23:58 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 21:42:02 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <sys/time.h>
 
 typedef struct s_arguments
 {
