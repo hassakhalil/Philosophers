@@ -6,11 +6,21 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 16:47:39 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 19:29:38 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*while (philo alive)
+{
+	keep thinking until both forks are free
+	if (philo is still alive)
+		->eat
+	else
+		->stop
+	sleep
+}*/
 
 void *routine(void *args)
 {
