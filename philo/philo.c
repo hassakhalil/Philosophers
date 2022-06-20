@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 23:15:59 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 23:23:05 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void *routine(void *args)
 	while (1)
 	{
 			printf("%d is thinking\n", (*args).philosopher_index);
-			//keep thinking until both forks are free (use mutex!!!!)
 			pthread_mutex_lock(&((*args).mutex));
 			printf("%d has taken a fork\n", (*args).philosopher_index);
 			((*args).forks)[(*args).philosopher_index - 1] = 1;
@@ -30,6 +29,7 @@ void *routine(void *args)
 			if (((*args).forks)[(*args).philosopher_index] == 1 && ((*args).forks)[(*args).philosopher_index - 1] == 1)
 			{
 				printf("%d is eating\n", (*args).philosopher_index);
+				usleep((*args).time_to_eat * 1000);
 				((*args).forks)[(*args).philosopher_index] == 0;
 				((*args).forks)[(*args).philosopher_index - 1] == 0;
 			}
