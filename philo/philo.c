@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 19:32:40 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 21:27:05 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void *routine(void *args)
 {
 	//(t_arguments *)args;
+	return ((void *)args);
 	/*while (philo alive)
 {
 	keep thinking until both forks are free
@@ -23,7 +24,7 @@ void *routine(void *args)
 	else
 		->stop
 	sleep
-}*/	
+}*/
 }
 int	main(int argc, char *argv[])
 {
@@ -47,14 +48,14 @@ int	main(int argc, char *argv[])
 		l++;
 	}
 	th = malloc(sizeof(pthread_t) * args.number_of_philosophers);
-	args.i = 0;
-	while (args.i < args.number_of_philosophers)
+	args.philosopher_index= 1;
+	while (args.philosopher_index <= args.number_of_philosophers)
 	{
-		if (pthread_create(&th[args.i], NULL, &routine, &args))
+		if (pthread_create(&th[(args.philosopher_index) - 1], NULL, &routine, &args))
 		{
 			return (-1);
 		}
-		(args.i)++;
+		(args.philosopher_index)++;
 	}
 	return (0);
 }
