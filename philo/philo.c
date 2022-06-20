@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 21:38:04 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/20 22:18:36 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,26 @@
 void *routine(void *args)
 {
 	(t_arguments *)args;
-	/*while (philo alive)
-{
-	keep thinking until both forks are free (use mutex!!!!)
-	if (philo is still alive)
-		->eat
-	else
-		->stop
-	sleep
-}*/
+	while (philo alive)
+	{
+			
+			//keep thinking until both forks are free (use mutex!!!!)
+			pthread_mutex_lock(&((*args).mutex));
+			printf("%d is eating\n", (*args).philosopher_index);
+			
+			pthread_mutex_unlock(&((*args).mutex));
+		if (philo is still alive)
+			->eat
+		else
+		{
+			printf("%d died\n", (*args).philosopher_index);
+			//free
+			exit(0);
+		}
+		printf("%d is sleeping\n", (*args).philosopher_index);
+		usleep(((*args).time_to_sleep) * 1000);
+		printf("%d is thinking\n", (*args).philosopher_index);
+	}
 }
 int	main(int argc, char *argv[])
 {
