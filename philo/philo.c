@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 15:43:07 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:53:38 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,27 @@ void *routine(void *args)
 }
 int	main(int argc, char *argv[])
 {
-	pthread_t	*th;
-	t_arguments args;
+	t_arguments *args;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
-	args.number_of_philosophers = ft_atoi(argv[1]);
-	args.time_to_die = ft_atoi(argv[2]);
-	args.time_to_eat = ft_atoi(argv[3]);
-	args.time_to_sleep = ft_atoi(argv[4]);
+	args = malloc(sizeof(t_arguments));
+	(*args).number_of_philosophers = ft_atoi(argv[1]);
+	(*args).time_to_die = ft_atoi(argv[2]);
+	(*args).time_to_eat = ft_atoi(argv[3]);
+	(*args).time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		args.number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-	th = malloc(sizeof(pthread_t) * args.number_of_philosophers);
-	args.fork = malloc(sizeof(pthread_mutex_t) * args.number_of_philosophers);
-	args.philosopher_index= 0;
-	while (args.philosopher_index < args.number_of_philosophers)
+		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+	(*args).th = malloc(sizeof(pthread_t) * (*args).number_of_philosophers);
+	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
+	(*args).philosopher_index= 0;
+	while ((*args).philosopher_index < (*args).number_of_philosophers)
 	{
-		if (pthread_create(&th[args.philosopher_index], NULL, &routine, &args))
+		if (pthread_create(&((*args).th)[(*args).philosopher_index], NULL, &routine, &args))
 		{
 			return (-1);
 		}
-		(args.philosopher_index)++;
+		((*args).philosopher_index)++;
 	}
 	return (0);
 }

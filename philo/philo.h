@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 15:36:11 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:48:34 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_arguments
     int time_to_sleep;
     int number_of_times_each_philosopher_must_eat;
     int philosopher_index;
+    pthread_t	*th;
     pthread_mutex_t *fork;
 }   t_arguments;
 int check_for_errors(int argc, char *argv[]);
