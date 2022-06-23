@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 16:31:28 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 17:39:17 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ int	main(int argc, char *argv[])
 	if (argc == 6)
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	(*args).th = malloc(sizeof(pthread_t) * (*args).number_of_philosophers);
+	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
 	while (i < (*args).number_of_philosophers)
 	{
+		printf("here  %d\n", i);
 		pthread_mutex_init(&(((*args).fork)[i]), NULL);
 		i++;
 	}
