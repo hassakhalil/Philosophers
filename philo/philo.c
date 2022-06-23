@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 19:58:40 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 21:32:02 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,28 @@ void *routine(void *args)
 {
 	t_arguments *s;
 	int			n;
+	int			i;
 
 	s = (t_arguments *)args;
-	if ((*s).philosopher_index + 1 == (*s).number_of_philosophers)
+	i = (*s).philosopher_index;
+	printf("philo id == %d\n", i + 1);
+	if (i + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
-		n = (*s).philosopher_index + 1;
+		n = i + 1;
 	while (1)
 	{
-		pthread_mutex_lock(&(((*s).fork)[(*s).philosopher_index]));
-		print(s, 0);
+		pthread_mutex_lock(&(((*s).fork)[i]));
+		print(s, 0, i);
 		pthread_mutex_lock(&(((*s).fork)[n]));
-		print(s, 0);
-		print(s, 1);
+		print(s, 0, i);
+		print(s, 1, i);
 		usleep(((*s).time_to_eat) * 1000);
-		pthread_mutex_unlock(&(((*s).fork)[(*s).philosopher_index]));
+		pthread_mutex_unlock(&(((*s).fork)[i]));
 		pthread_mutex_unlock(&(((*s).fork)[n]));
-		print(s, 2);
+		print(s, 2, i);
 		usleep(((*s).time_to_sleep) * 1000);
-		print(s, 3);
+		print(s, 3, i);
 	}
 }
 int	main(int argc, char *argv[])
@@ -63,6 +66,7 @@ int	main(int argc, char *argv[])
 	(*args).philosopher_index = 0;
 	while ((*args).philosopher_index < (*args).number_of_philosophers)
 	{
+		printf("index %d == %d nop\n", (*args).philosopher_index, (*args).number_of_philosophers);
 		if (pthread_create(&((*args).th)[(*args).philosopher_index], NULL, &routine, args))
 		{
 			return (-1);
