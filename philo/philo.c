@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 19:41:52 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 19:58:40 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void *routine(void *args)
 	if ((*s).philosopher_index + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
-		n = (*s).philosopher_index;
+		n = (*s).philosopher_index + 1;
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).fork)[(*s).philosopher_index]));
 		print(s, 0);
-		pthread_mutex_lock(&(((*s).fork)[n + 1]));
+		pthread_mutex_lock(&(((*s).fork)[n]));
 		print(s, 0);
 		print(s, 1);
 		usleep(((*s).time_to_eat) * 1000);
 		pthread_mutex_unlock(&(((*s).fork)[(*s).philosopher_index]));
-		pthread_mutex_unlock(&(((*s).fork)[n + 1]));
+		pthread_mutex_unlock(&(((*s).fork)[n]));
 		print(s, 2);
 		usleep(((*s).time_to_sleep) * 1000);
 		print(s, 3);
@@ -40,7 +40,7 @@ void *routine(void *args)
 int	main(int argc, char *argv[])
 {
 	t_arguments *args;
-	int			i = 0;
+	int			i;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
@@ -54,6 +54,7 @@ int	main(int argc, char *argv[])
 	(*args).th = malloc(sizeof(pthread_t) * (*args).number_of_philosophers);
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
 	pthread_mutex_init(&((*args).print_logs), NULL);
+	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
 		pthread_mutex_init(&(((*args).fork)[i]), NULL);
@@ -77,6 +78,7 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
+	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
 		pthread_mutex_destroy(&(((*args).fork)[i]));
