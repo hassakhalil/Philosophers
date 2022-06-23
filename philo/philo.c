@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 15:53:38 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 16:31:28 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void *routine(void *args)
 int	main(int argc, char *argv[])
 {
 	t_arguments *args;
+	int			i = 0;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
@@ -54,7 +55,11 @@ int	main(int argc, char *argv[])
 	if (argc == 6)
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	(*args).th = malloc(sizeof(pthread_t) * (*args).number_of_philosophers);
-	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
+	while (i < (*args).number_of_philosophers)
+	{
+		pthread_mutex_init(&(((*args).fork)[i]), NULL);
+		i++;
+	}
 	(*args).philosopher_index= 0;
 	while ((*args).philosopher_index < (*args).number_of_philosophers)
 	{
@@ -63,6 +68,20 @@ int	main(int argc, char *argv[])
 			return (-1);
 		}
 		((*args).philosopher_index)++;
+	}
+	i = 0;
+	while (i < (*args).number_of_philosophers)
+	{
+		if (pthread_join(((*args).th)[i], NULL))
+		{
+			return (-1);
+		}
+		i++;
+	}
+	while (i < (*args).number_of_philosophers)
+	{
+		pthread_mutex_destroy(&(((*args).fork)[i]));
+		i++;
 	}
 	return (0);
 }
