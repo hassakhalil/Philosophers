@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 15:35:20 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:43:07 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void *routine(void *args)
 	while (1)
 	{
 		pthread_mutex_lock(&((*s).fork[(*s).philosopher_index]));
-		printf("%d has taken a fork\n", (*s).philosopher_index);
+		printf("%d has taken a fork\n", (*s).philosopher_index + 1);
 		pthread_mutex_lock(&((*s).fork[(*s).philosopher_index + 1]));
-		printf("%d has taken a fork\n", (*s).philosopher_index);
-		printf("%d is eating\n", (*s).philosopher_index);
+		printf("%d has taken a fork\n", (*s).philosopher_index + 1);
+		printf("%d is eating\n", (*s).philosopher_index + 1);
 		usleep(((*s).time_to_eat) * 1000);
 		pthread_mutex_unlock(&((*s).fork[(*s).philosopher_index]));
 		pthread_mutex_unlock(&((*s).fork[(*s).philosopher_index + 1]));
@@ -35,9 +35,9 @@ void *routine(void *args)
 		//	//free
 		//	exit(0);
 	//	}
-		printf("%d is sleeping\n", (*s).philosopher_index);
+		printf("%d is sleeping\n", (*s).philosopher_index + 1);
 		usleep(((*s).time_to_sleep) * 1000);
-		printf("%d is thinking\n", (*s).philosopher_index);
+		printf("%d is thinking\n", (*s).philosopher_index + 1);
 	}
 }
 int	main(int argc, char *argv[])
