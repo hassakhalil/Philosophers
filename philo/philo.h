@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 21:52:48 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:36:11 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_arguments
 {
@@ -24,9 +25,8 @@ typedef struct s_arguments
     int time_to_eat;
     int time_to_sleep;
     int number_of_times_each_philosopher_must_eat;
-    int *forks;
     int philosopher_index;
-    pthread_mutex_t mutex;
+    pthread_mutex_t *fork;
 }   t_arguments;
 int check_for_errors(int argc, char *argv[]);
 int	ft_atoi(const char *nptr);
