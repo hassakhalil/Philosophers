@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/20 16:45:40 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 19:32:31 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ int	ft_atoi(const char *nptr)
 			return (-1);
 	}
 	return (n * sign);
+}
+
+void	print(t_arguments *s, int state)
+{
+	pthread_mutex_lock(&((*s).print_logs));
+	if (state == 0)
+		printf("%d has taken a fork\n", ((*s).philosopher_index) + 1);
+	else if (state == 1)
+		printf("%d is eating\n", ((*s).philosopher_index) + 1);
+	else if (state == 2)
+		printf("%d is sleeping\n", ((*s).philosopher_index) + 1);
+	else if (state == 3)
+		printf("%d is thinking\n", ((*s).philosopher_index) + 1);
+	else
+		printf("%d died\n", ((*s).philosopher_index) + 1);
+	pthread_mutex_unlock(&((*s).print_logs));
 }

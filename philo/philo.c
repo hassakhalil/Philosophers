@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 18:32:12 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 19:41:52 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ void *routine(void *args)
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).fork)[(*s).philosopher_index]));
-		printf("%d has taken a fork\n", n + 1);
+		print(s, 0);
 		pthread_mutex_lock(&(((*s).fork)[n + 1]));
-		printf("%d has taken a fork\n", n + 1);
-		printf("%d is eating\n", n + 1);
+		print(s, 0);
+		print(s, 1);
 		usleep(((*s).time_to_eat) * 1000);
 		pthread_mutex_unlock(&(((*s).fork)[(*s).philosopher_index]));
 		pthread_mutex_unlock(&(((*s).fork)[n + 1]));
-		printf("%d is sleeping\n", n + 1);
+		print(s, 2);
 		usleep(((*s).time_to_sleep) * 1000);
-		printf("%d is thinking\n", n + 1);
+		print(s, 3);
 	}
 }
 int	main(int argc, char *argv[])
@@ -53,6 +53,7 @@ int	main(int argc, char *argv[])
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	(*args).th = malloc(sizeof(pthread_t) * (*args).number_of_philosophers);
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
+	pthread_mutex_init(&((*args).print_logs), NULL);
 	while (i < (*args).number_of_philosophers)
 	{
 		pthread_mutex_init(&(((*args).fork)[i]), NULL);
@@ -81,5 +82,6 @@ int	main(int argc, char *argv[])
 		pthread_mutex_destroy(&(((*args).fork)[i]));
 		i++;
 	}
+	pthread_mutex_destroy(&((*args).print_logs));
 	return (0);
 }
