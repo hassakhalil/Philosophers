@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 18:27:42 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 18:32:12 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ void *routine(void *args)
 	int			n;
 
 	s = (t_arguments *)args;
-	printf("n of philos =  %d\n", (*s).number_of_philosophers);
 	if ((*s).philosopher_index + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
 		n = (*s).philosopher_index;
-	printf("thi is it %d\n", n);
-	printf("thi is it %d\n", n);
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).fork)[(*s).philosopher_index]));
@@ -35,14 +32,6 @@ void *routine(void *args)
 		usleep(((*s).time_to_eat) * 1000);
 		pthread_mutex_unlock(&(((*s).fork)[(*s).philosopher_index]));
 		pthread_mutex_unlock(&(((*s).fork)[n + 1]));
-		//if (philo is still alive)
-		//	->eat
-		//else
-		//{
-		//	printf("%d died\n", (*args).philosopher_index);
-		//	//free
-		//	exit(0);
-	//	}
 		printf("%d is sleeping\n", n + 1);
 		usleep(((*s).time_to_sleep) * 1000);
 		printf("%d is thinking\n", n + 1);
