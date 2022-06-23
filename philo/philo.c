@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 21:32:02 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/23 21:53:27 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void *routine(void *args)
 
 	s = (t_arguments *)args;
 	i = (*s).philosopher_index;
-	printf("philo id == %d\n", i + 1);
 	if (i + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
@@ -66,7 +65,6 @@ int	main(int argc, char *argv[])
 	(*args).philosopher_index = 0;
 	while ((*args).philosopher_index < (*args).number_of_philosophers)
 	{
-		printf("index %d == %d nop\n", (*args).philosopher_index, (*args).number_of_philosophers);
 		if (pthread_create(&((*args).th)[(*args).philosopher_index], NULL, &routine, args))
 		{
 			return (-1);
