@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 16:49:19 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:52:49 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_arguments
     t_philo *philo;
     pthread_mutex_t *fork;
     pthread_mutex_t print_logs;
-    pthread_mutex_t lock_index;
 }   t_arguments;
 
 int     check_for_errors(int argc, char *argv[]);

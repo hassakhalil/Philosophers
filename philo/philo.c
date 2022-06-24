@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 16:49:08 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:53:20 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@ void *routine(void *args)
 	int			i;
 
 	s = (t_arguments *)args;
-	//pthread_mutex_lock(&(s->lock_index));
 	i = s->index;
 	((s->philo)[s->index]).start = time_now(s);
-	//pthread_mutex_unlock(&(s->lock_index));
 	if (i + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
 		n = i + 1;
-	//pthread_mutex_unlock(&(s->lock_index));
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).fork)[i]));
@@ -66,7 +63,6 @@ int	main(int argc, char *argv[])
 	}
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
 	pthread_mutex_init(&((*args).print_logs), NULL);
-	pthread_mutex_init(&((*args).lock_index), NULL);
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
@@ -100,6 +96,5 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	pthread_mutex_destroy(&((*args).print_logs));
-	pthread_mutex_destroy(&((*args).lock_index));
 	return (0);
 }
