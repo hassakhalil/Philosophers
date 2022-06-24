@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 16:26:09 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:50:32 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,22 @@ int	ft_atoi(const char *nptr)
 	return (n * sign);
 }
 
-void	print(t_arguments *s, int state)
+void	print(t_arguments *s, int state,int index)
 {
 	pthread_mutex_lock(&((*s).print_logs));
 	if (state == 0)
-		printf("%ld %d has taken a fork\n", (time_now(s) - ((s->philo)[s->index]).start) * 1000, s->index + 1);
+		printf("%ld %d has taken a fork\n", (time_now(s) - ((s->philo)[index]).start) * 1000, index + 1);
 	else if (state == 1)
 	{
 		
-		printf("%ld %d is eating\n", (time_now(s) - ((s->philo)[s->index]).start) * 1000, s->index + 1);
+		printf("%ld %d is eating\n", (time_now(s) - ((s->philo)[index]).start) * 1000, index + 1);
 	}
 	else if (state == 2)
-		printf("%ld %d is sleeping\n", (time_now(s) - ((s->philo)[s->index]).start) * 1000, s->index + 1);
+		printf("%ld %d is sleeping\n", (time_now(s) - ((s->philo)[index]).start) * 1000, index + 1);
 	else if (state == 3)
-		printf("%ld %d is thinking\n", (time_now(s) - ((s->philo)[s->index]).start) * 1000, s->index + 1);
+		printf("%ld %d is thinking\n", (time_now(s) - ((s->philo)[index]).start) * 1000, index + 1);
 	else
-		printf("%ld %d died\n", (time_now(s) - ((s->philo)[s->index]).start) * 1000, s->index + 1);
+		printf("%ld %d died\n", (time_now(s) - ((s->philo)[index]).start) * 1000, index + 1);
 	pthread_mutex_unlock(&((*s).print_logs));
 }
 

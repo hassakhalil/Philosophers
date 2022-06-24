@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 16:38:52 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:49:08 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,28 @@ void *routine(void *args)
 	int			i;
 
 	s = (t_arguments *)args;
-	pthread_mutex_lock(&(s->lock_index));
+	//pthread_mutex_lock(&(s->lock_index));
 	i = s->index;
-	((s->philo)[i]).start = time_now(s);
+	((s->philo)[s->index]).start = time_now(s);
+	//pthread_mutex_unlock(&(s->lock_index));
 	if (i + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
 		n = i + 1;
-	pthread_mutex_unlock(&(s->lock_index));
+	//pthread_mutex_unlock(&(s->lock_index));
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).fork)[i]));
-		print(s, 0);
+		print(s, 0, i);
 		pthread_mutex_lock(&(((*s).fork)[n]));
-		print(s, 0);
-		print(s, 1);
+		print(s, 0, i);
+		print(s, 1, i);
 		usleep(((*s).time_to_eat) / 1000);
 		pthread_mutex_unlock(&(((*s).fork)[i]));
 		pthread_mutex_unlock(&(((*s).fork)[n]));
-		print(s, 2);
+		print(s, 2, i);
 		usleep(((*s).time_to_sleep) / 1000);
-		print(s, 3);
+		print(s, 3, i);
 	}
 }
 int	main(int argc, char *argv[])

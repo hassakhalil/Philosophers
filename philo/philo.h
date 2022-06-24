@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 16:36:00 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:49:19 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ typedef struct s_arguments
 
 int     check_for_errors(int argc, char *argv[]);
 int     ft_atoi(const char *nptr);
-void    print(t_arguments *s, int state);
+void    print(t_arguments *s, int state, int index);
 long	time_now(t_arguments *s);
 #endif
