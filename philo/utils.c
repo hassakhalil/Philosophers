@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 21:38:58 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 21:47:31 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ void	print(t_arguments *s, int state, int i)
 {
 	pthread_mutex_lock(&((*s).print_logs));
 	if (state == 0)
-		printf("%ld %d has taken a fork\n", (time_now(s, i) - ((s->philo)[i]).start) * 1000, i + 1);
+		printf("%ld %d has taken a fork\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else if (state == 1)
 	{
 		((s->philo)[i]).last_meal = time_now(s, i);
-		printf("%ld %d is eating\n", (time_now(s, i) - ((s->philo)[i]).start) * 1000, i + 1);
+		printf("%ld %d is eating\n", (time_now(s, i) - ((s->philo)[i]).start) , i + 1);
 	}
 	else if (state == 2)
-		printf("%ld %d is sleeping\n", (time_now(s, i) - ((s->philo)[i]).start) * 1000, i + 1);
+		printf("%ld %d is sleeping\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else if (state == 3)
-		printf("%ld %d is thinking\n", (time_now(s, i) - ((s->philo)[i]).start) * 1000, i + 1);
+		printf("%ld %d is thinking\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else
-		printf("%ld %d died\n", (time_now(s, i) - ((s->philo)[i]).start) * 1000, i + 1);
-	if (state <= 3)
+		printf("%ld %d died\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+	if (state != 4)
 		pthread_mutex_unlock(&((*s).print_logs));
 }
 
@@ -85,21 +85,12 @@ long	time_now(t_arguments *s, int i)
 void	supervisor(t_arguments *s)
 {
 	int		i;
-	//int		j;
 	
 	i = 0;
 	while (i < s->number_of_philosophers)
 	{
 		if ((time_now(s, i) - ((s->philo)[i]).last_meal) > s->time_to_die)
-		{
 			print(s, 4, i);
-			/*j = 0;
-			while (j < s->number_of_philosophers)
-			{
-				pthread_mutex_lock(&(((*s).fork)[j]));
-				j++;
-			}*/
-		}
 		i++;
 	}
 }

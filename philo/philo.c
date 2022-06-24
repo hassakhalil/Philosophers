@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 21:24:50 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 21:54:34 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void *routine(void *args)
 		pthread_mutex_lock(&(((*s).fork)[n]));
 		print(s, 0, i);
 		print(s, 1, i);
-		usleep(((*s).time_to_eat) / 1000);
+		usleep(((*s).time_to_eat) * 1000);
 		pthread_mutex_unlock(&(((*s).fork)[i]));
 		pthread_mutex_unlock(&(((*s).fork)[n]));
 		print(s, 2, i);
-		usleep(((*s).time_to_sleep) / 1000);
+		usleep(((*s).time_to_sleep) * 1000);
 		print(s, 3, i);
 	}
 }
@@ -81,10 +81,10 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
-	while (1)
+	/*while (1)
 	{
 		supervisor(args);
-	}
+	}*/
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
