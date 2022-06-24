@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 21:54:34 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 22:22:14 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
-		((args->philo)[i]).philosopher_index = i;
 		(*args).index = i;
 		if (pthread_create(&((args->philo)[i].th), NULL, &routine, args))
 		{

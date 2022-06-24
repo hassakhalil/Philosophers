@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 21:47:31 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 22:26:07 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	print(t_arguments *s, int state, int i)
 	else if (state == 3)
 		printf("%ld %d is thinking\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else
-		printf("%ld %d died\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%ld %d died\n", ((s->philo)[i]).time_of_death, i + 1);
 	if (state != 4)
 		pthread_mutex_unlock(&((*s).print_logs));
 }
@@ -79,7 +79,7 @@ void	print(t_arguments *s, int state, int i)
 long	time_now(t_arguments *s, int i)
 {
 	gettimeofday(((s->philo)[i]).tp, NULL);
-	return ((((s->philo)[i]).tp)->tv_sec * 1000);
+	return ((((((s->philo)[i]).tp)->tv_sec ) * 1000) + (((((s->philo)[i]).tp)->tv_sec) / 1000));
 }
 
 void	supervisor(t_arguments *s)
@@ -89,8 +89,13 @@ void	supervisor(t_arguments *s)
 	i = 0;
 	while (i < s->number_of_philosophers)
 	{
-		if ((time_now(s, i) - ((s->philo)[i]).last_meal) > s->time_to_die)
+		((s->philo)[i]).time_of_death = (time_now(s, i) - ((s->philo)[i]).last_meal) - s->time_to_die;
+		if (((s->philo)[i]).time_of_death > 0)
+		{
+			
 			print(s, 4, i);
+			exit(0);
+		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 21:23:20 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 21:58:26 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 typedef struct s_philo
 {
     pthread_t	th;
-    int         philosopher_index;
     struct timeval *restrict tp;
     long    start;
     long    last_meal;
+    long    time_of_death;
 }   t_philo;
 
 typedef struct s_arguments
