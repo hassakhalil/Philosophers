@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 20:28:27 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 03:08:52 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,24 @@ int	ft_atoi(const char *nptr)
 	return (n * sign);
 }
 
-void	print(t_arguments *s, int state, int index)
+void	print(t_arguments *s, int state, int index, long start)
 {
 	pthread_mutex_lock(&((*s).print_logs));
 	if (state == 0)
-		printf("%d has taken a fork\n", index + 1);
+		printf("%ld %d has taken a fork\n", (time_now(s) - start) * 1000, index + 1);
 	else if (state == 1)
-		printf("%d is eating\n", index + 1);
+		printf("%ld %d is eating\n", (time_now(s) - start) * 1000, index + 1);
 	else if (state == 2)
-		printf("%d is sleeping\n", index + 1);
+		printf("%ld %d is sleeping\n", (time_now(s) - start) * 1000, index + 1);
 	else if (state == 3)
-		printf("%d is thinking\n", index + 1);
+		printf("%ld %d is thinking\n", (time_now(s) - start) * 1000, index + 1);
 	else
-		printf("%d died\n", index + 1);
+		printf("%ld %d died\n", (time_now(s) - start) * 1000, index + 1);
 	pthread_mutex_unlock(&((*s).print_logs));
+}
+
+long	time_now(t_arguments *s)
+{
+	gettimeofday((*s).tp, NULL);
+	return (((*s).tp)->tv_sec);
 }

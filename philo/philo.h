@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 20:28:51 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 03:04:33 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct s_arguments
     pthread_t	*th;
     pthread_mutex_t *fork;
     pthread_mutex_t print_logs;
+    struct timeval *restrict tp;
 }   t_arguments;
 int     check_for_errors(int argc, char *argv[]);
 int     ft_atoi(const char *nptr);
-void    print(t_arguments *s, int state, int index);
+void    print(t_arguments *s, int state, int index, long start);
+long	time_now(t_arguments *s);
 #endif
