@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 16:53:20 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 17:08:52 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void *routine(void *args)
 		pthread_mutex_lock(&(((*s).fork)[n]));
 		print(s, 0, i);
 		print(s, 1, i);
+		//add supervisor
 		usleep(((*s).time_to_eat) / 1000);
 		pthread_mutex_unlock(&(((*s).fork)[i]));
 		pthread_mutex_unlock(&(((*s).fork)[n]));
