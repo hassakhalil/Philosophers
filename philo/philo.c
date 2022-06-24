@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 22:22:14 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/25 00:09:30 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
-		((args->philo)[i]).tp = malloc(sizeof(((args->philo)[i]).tp));
+		((args->philo)[i]).tp = malloc(sizeof(struct timeval));
 		i++;
 	}
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
@@ -80,10 +80,10 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
-	/*while (1)
+	while (1)
 	{
 		supervisor(args);
-	}*/
+	}
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{

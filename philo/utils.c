@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 22:26:07 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/25 00:08:47 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,26 @@ void	print(t_arguments *s, int state, int i)
 {
 	pthread_mutex_lock(&((*s).print_logs));
 	if (state == 0)
-		printf("%ld %d has taken a fork\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%lld %d has taken a fork\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else if (state == 1)
 	{
 		((s->philo)[i]).last_meal = time_now(s, i);
-		printf("%ld %d is eating\n", (time_now(s, i) - ((s->philo)[i]).start) , i + 1);
+		printf("%lld %d is eating\n", (time_now(s, i) - ((s->philo)[i]).start) , i + 1);
 	}
 	else if (state == 2)
-		printf("%ld %d is sleeping\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%lld %d is sleeping\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else if (state == 3)
-		printf("%ld %d is thinking\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%lld %d is thinking\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
 	else
-		printf("%ld %d died\n", ((s->philo)[i]).time_of_death, i + 1);
+		printf("%lld %d died\n", ((s->philo)[i]).time_of_death, i + 1);
 	if (state != 4)
 		pthread_mutex_unlock(&((*s).print_logs));
 }
 
-long	time_now(t_arguments *s, int i)
+long long	time_now(t_arguments *s, int i)
 {
-	gettimeofday(((s->philo)[i]).tp, NULL);
-	return ((((((s->philo)[i]).tp)->tv_sec ) * 1000) + (((((s->philo)[i]).tp)->tv_sec) / 1000));
+	gettimeofday((((s->philo)[i]).tp), NULL);
+	return ((1000000 * (((s->philo)[i]).tp)->tv_sec +  (((s->philo)[i]).tp)->tv_usec));
 }
 
 void	supervisor(t_arguments *s)
@@ -90,9 +90,8 @@ void	supervisor(t_arguments *s)
 	while (i < s->number_of_philosophers)
 	{
 		((s->philo)[i]).time_of_death = (time_now(s, i) - ((s->philo)[i]).last_meal) - s->time_to_die;
-		if (((s->philo)[i]).time_of_death > 0)
+		if (((s->philo)[i]).time_of_death >= 0)
 		{
-			
 			print(s, 4, i);
 			exit(0);
 		}
