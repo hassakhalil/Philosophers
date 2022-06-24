@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 17:08:52 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 21:24:50 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void *routine(void *args)
 
 	s = (t_arguments *)args;
 	i = s->index;
-	((s->philo)[s->index]).start = time_now(s);
+	((s->philo)[i]).start = time_now(s, i);
+	((s->philo)[i]).last_meal = ((s->philo)[i]).start;
 	if (i + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
@@ -32,7 +33,6 @@ void *routine(void *args)
 		pthread_mutex_lock(&(((*s).fork)[n]));
 		print(s, 0, i);
 		print(s, 1, i);
-		//add supervisor
 		usleep(((*s).time_to_eat) / 1000);
 		pthread_mutex_unlock(&(((*s).fork)[i]));
 		pthread_mutex_unlock(&(((*s).fork)[n]));
@@ -80,6 +80,10 @@ int	main(int argc, char *argv[])
 			return (-1);
 		}
 		i++;
+	}
+	while (1)
+	{
+		supervisor(args);
 	}
 	i = 0;
 	while (i < (*args).number_of_philosophers)
