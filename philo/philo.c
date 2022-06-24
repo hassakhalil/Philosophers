@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 03:06:29 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:38:52 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,29 @@ void *routine(void *args)
 	t_arguments *s;
 	int			n;
 	int			i;
-	long		start;
 
 	s = (t_arguments *)args;
-	start = time_now(s);
-	i = (*s).philosopher_index;
+	pthread_mutex_lock(&(s->lock_index));
+	i = s->index;
+	((s->philo)[i]).start = time_now(s);
 	if (i + 1 == (*s).number_of_philosophers)
 		n = 0;
 	else
 		n = i + 1;
+	pthread_mutex_unlock(&(s->lock_index));
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).fork)[i]));
-		print(s, 0, i, start);
+		print(s, 0);
 		pthread_mutex_lock(&(((*s).fork)[n]));
-		print(s, 0, i, start);
-		print(s, 1, i, start);
-		//check time to die
-		usleep(((*s).time_to_eat) * 1000);
+		print(s, 0);
+		print(s, 1);
+		usleep(((*s).time_to_eat) / 1000);
 		pthread_mutex_unlock(&(((*s).fork)[i]));
 		pthread_mutex_unlock(&(((*s).fork)[n]));
-		print(s, 2, i, start);
-		usleep(((*s).time_to_sleep) * 1000);
-		print(s, 3, i, start);
+		print(s, 2);
+		usleep(((*s).time_to_sleep) / 1000);
+		print(s, 3);
 	}
 }
 int	main(int argc, char *argv[])
@@ -56,29 +56,37 @@ int	main(int argc, char *argv[])
 	(*args).time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-	(*args).tp = malloc(sizeof((*args).tp));
-	(*args).th = malloc(sizeof(pthread_t) * (*args).number_of_philosophers);
+	(*args).philo = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
+	i = 0;
+	while (i < (*args).number_of_philosophers)
+	{
+		((args->philo)[i]).tp = malloc(sizeof(((args->philo)[i]).tp));
+		i++;
+	}
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
 	pthread_mutex_init(&((*args).print_logs), NULL);
+	pthread_mutex_init(&((*args).lock_index), NULL);
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
 		pthread_mutex_init(&(((*args).fork)[i]), NULL);
 		i++;
 	}
-	(*args).philosopher_index = 0;
-	while ((*args).philosopher_index < (*args).number_of_philosophers)
+	i = 0;
+	while (i < (*args).number_of_philosophers)
 	{
-		if (pthread_create(&((*args).th)[(*args).philosopher_index], NULL, &routine, args))
+		((args->philo)[i]).philosopher_index = i;
+		(*args).index = i;
+		if (pthread_create(&((args->philo)[i].th), NULL, &routine, args))
 		{
 			return (-1);
 		}
-		((*args).philosopher_index)++;
+		i++;
 	}
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
-		if (pthread_join(((*args).th)[i], NULL))
+		if (pthread_join((args->philo)[i].th, NULL))
 		{
 			return (-1);
 		}
@@ -91,5 +99,6 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	pthread_mutex_destroy(&((*args).print_logs));
+	pthread_mutex_destroy(&((*args).lock_index));
 	return (0);
 }

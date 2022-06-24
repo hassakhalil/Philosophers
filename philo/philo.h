@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/24 03:04:33 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:36:00 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef struct s_philo
+{
+    pthread_t	th;
+    int         philosopher_index;
+    struct timeval *restrict tp;
+    long    start;
+}   t_philo;
+
 typedef struct s_arguments
 {
     int number_of_philosophers;
@@ -25,14 +33,15 @@ typedef struct s_arguments
     int time_to_eat;
     int time_to_sleep;
     int number_of_times_each_philosopher_must_eat;
-    int philosopher_index;
-    pthread_t	*th;
+    int index;
+    t_philo *philo;
     pthread_mutex_t *fork;
     pthread_mutex_t print_logs;
-    struct timeval *restrict tp;
+    pthread_mutex_t lock_index;
 }   t_arguments;
+
 int     check_for_errors(int argc, char *argv[]);
 int     ft_atoi(const char *nptr);
-void    print(t_arguments *s, int state, int index, long start);
+void    print(t_arguments *s, int state);
 long	time_now(t_arguments *s);
 #endif
