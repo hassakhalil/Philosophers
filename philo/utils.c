@@ -6,7 +6,7 @@
 /*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/25 00:08:47 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/06/25 20:11:44 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	print(t_arguments *s, int state, int i)
 long long	time_now(t_arguments *s, int i)
 {
 	gettimeofday((((s->philo)[i]).tp), NULL);
-	return ((1000000 * (((s->philo)[i]).tp)->tv_sec +  (((s->philo)[i]).tp)->tv_usec));
+	return ((1000000 * (((s->philo)[i]).tp)->tv_sec +  (((s->philo)[i]).tp)->tv_usec) / 1000);
 }
 
 void	supervisor(t_arguments *s)
