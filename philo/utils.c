@@ -56,45 +56,38 @@ int	ft_atoi(const char *nptr)
 	return (n * sign);
 }
 
-void	print(t_arguments *s, int state, int i)
+void	print(t_philo *s, int state, int i)
 {
-	pthread_mutex_lock(&((*s).print_logs));
+	pthread_mutex_lock(&((s->args)->print_logs));
 	if (state == 0)
-		printf("%lld %d has taken a fork\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%lld %d has taken a fork\n", time_now(s) - (s->start), i + 1);
 	else if (state == 1)
 	{
-		((s->philo)[i]).last_meal = time_now(s, i);
-		printf("%lld %d is eating\n", (time_now(s, i) - ((s->philo)[i]).start) , i + 1);
+		s->last_meal = time_now(s);
+		printf("%lld %d is eating\n", time_now(s) - (s->start) , i + 1);
 	}
 	else if (state == 2)
-		printf("%lld %d is sleeping\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%lld %d is sleeping\n", time_now(s) - (s->start), i + 1);
 	else if (state == 3)
-		printf("%lld %d is thinking\n", (time_now(s, i) - ((s->philo)[i]).start), i + 1);
+		printf("%lld %d is thinking\n", time_now(s) - (s->start), i + 1);
 	else
-		printf("%lld %d died\n", ((s->philo)[i]).time_of_death, i + 1);
+		printf("%lld %d died\n", s->time_of_death, i + 1);
 	if (state != 4)
-		pthread_mutex_unlock(&((*s).print_logs));
+		pthread_mutex_unlock(&((s->args)->print_logs));
 }
 
-long long	time_now(t_arguments *s, int i)
+long long	time_now(t_philo *s)
 {
-	gettimeofday((((s->philo)[i]).tp), NULL);
-	return ((1000000 * (((s->philo)[i]).tp)->tv_sec +  (((s->philo)[i]).tp)->tv_usec) / 1000);
+	gettimeofday(&(s->tp), NULL);
+	return (1000 * ((s->tp).tv_sec) +  ((s->tp).tv_usec) / 1000);
 }
 
-void	supervisor(t_arguments *s)
+void	supervisor(t_philo *s)
 {
-	int		i;
-	
-	i = 0;
-	while (i < s->number_of_philosophers)
+	s->time_of_death = time_now(s) - (s->last_meal) - s->args->time_to_die;
+	if (time_now(s) - (s->last_meal) >=  s->args->time_to_die)
 	{
-		((s->philo)[i]).time_of_death = (time_now(s, i) - ((s->philo)[i]).last_meal) - s->time_to_die;
-		if (((s->philo)[i]).time_of_death >= 0)
-		{
-			print(s, 4, i);
-			exit(0);
-		}
-		i++;
+		print(s, 4, s->index);
+		exit(0);
 	}
 }
