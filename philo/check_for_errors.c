@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_for_errors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:20:11 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/23 21:49:06 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/07/31 01:37:01 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int check_for_errors(int argc, char *argv[])
         printf("Error\n");
         return(-1);
     }
-    if (ft_atoi(argv[1]) <= 1 || ft_atoi(argv[2]) < 0 || ft_atoi(argv[3]) < 0 || ft_atoi(argv[4]) < 0)
+    if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[2]) < 0 || ft_atoi(argv[3]) < 0 || ft_atoi(argv[4]) < 0)
     {
         printf("Error\n");
         return(-1);
