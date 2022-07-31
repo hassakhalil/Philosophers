@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/25 20:12:08 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/07/31 01:22:24 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void *routine(void *philo)
 	int			i;
 
 	s = (t_philo *)philo;
-	i  = s->index;
 	(*s).start = time_now(s);
 	(*s).last_meal = (*s).start;
+	i  = s->index;
 	if (i + 1 == (s->args)->number_of_philosophers)
 		n = 0;
 	else
@@ -81,7 +81,7 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
-	while (1)
+	/*while (1)
 	{
 		i = 0;
 		while (i < args->number_of_philosophers)
@@ -89,7 +89,7 @@ int	main(int argc, char *argv[])
 			supervisor(&philo[i]);
 			i++;
 		}
-	}
+	}*/
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
