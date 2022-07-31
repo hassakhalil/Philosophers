@@ -39,6 +39,7 @@ typedef struct s_philo
     struct timeval tp;
     long long       start;
     long long       last_meal;
+    int             meals;
     t_arguments     *args;
 }   t_philo;
 

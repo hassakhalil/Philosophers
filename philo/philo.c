@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
 	(*args).time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+	else
+		(*args).number_of_times_each_philosopher_must_eat  = -1;
 	philo = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
 	i = 0;
@@ -70,6 +72,7 @@ int main(int argc, char *argv[])
 	while (i < (*args).number_of_philosophers)
 	{
 		(philo[i]).index = i;
+		(philo[i]).meals = 0;
 		if (i == args->number_of_philosophers - 1)
 			(philo[i]).right = 0;
 		else

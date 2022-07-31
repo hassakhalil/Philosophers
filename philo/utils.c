@@ -66,8 +66,11 @@ void	print(t_philo *s, int state, int i)
 	}
 	else if (state == 1)
 	{
-		pthread_mutex_lock(&((s->args)->print_logs));
+		if (s->args->number_of_times_each_philosopher_must_eat == s->meals)
+			exit (100);
+		s->meals++;
 		s->last_meal = time_now(s);
+		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d is eating\n", time_now(s) - s->start , i + 1);
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
