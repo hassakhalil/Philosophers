@@ -56,12 +56,12 @@ int	ft_atoi(const char *nptr)
 	return (n * sign);
 }
 
-void	print(t_philo *s, int state, int i)
+void	print(t_philo *s, int state)
 {
 	if (state == 0)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
-		printf("%lld %d has taken a fork\n", time_now(s) - s->start, i + 1);
+		printf("%lld %d has taken a fork\n", time_now(s) - s->start, s->index + 1);
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 1)
@@ -71,25 +71,25 @@ void	print(t_philo *s, int state, int i)
 		s->meals++;
 		s->last_meal = time_now(s);
 		pthread_mutex_lock(&((s->args)->print_logs));
-		printf("%lld %d is eating\n", time_now(s) - s->start , i + 1);
+		printf("%lld %d is eating\n", time_now(s) - s->start , s->index + 1);
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 2)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
-		printf("%lld %d is sleeping\n", time_now(s) - s->start, i + 1);
+		printf("%lld %d is sleeping\n", time_now(s) - s->start, s->index + 1);
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 3)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
-		printf("%lld %d is thinking\n", time_now(s) - s->start, i + 1);
+		printf("%lld %d is thinking\n", time_now(s) - s->start, s->index + 1);
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
-		printf("%lld %d died\n", time_now(s) - s->start, i + 1);
+		printf("%lld %d died\n", time_now(s) - s->start, s->index + 1);
 	}
 }
 
@@ -103,7 +103,7 @@ void	supervisor(t_philo *s)
 {
 	if ((time_now(s) - (s->last_meal)) >  s->args->time_to_die)
 	{
-		print(s, 4, s->index);
+		print(s, 4);
 		exit(0);
 	}
 }

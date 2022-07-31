@@ -15,23 +15,21 @@
 void *routine(void *philo)
 {
 	t_philo *s;
-	int i;
 
 	s = (t_philo *)philo;
-	i = s->index;
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).args->fork)[s->left]));
-		print(s, 0, i);
+		print(s, 0);
 		pthread_mutex_lock(&(((*s).args->fork)[s->right]));
-		print(s, 0, i);
-		print(s, 1, i);
+		print(s, 0);
+		print(s, 1);
 		usleep(((s->args)->time_to_eat) * 1000);
 		pthread_mutex_unlock(&(((*s).args->fork)[s->left]));
 		pthread_mutex_unlock(&(((*s).args->fork)[s->right]));
-		print(s, 2, i);
+		print(s, 2);
 		usleep((s->args->time_to_sleep) * 1000);
-		print(s, 3, i);
+		print(s, 3);
 	}
 }
 int main(int argc, char *argv[])
