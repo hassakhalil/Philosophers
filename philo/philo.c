@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/07/31 01:25:14 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/07/31 02:30:58 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void *routine(void *philo)
 	int			i;
 
 	s = (t_philo *)philo;
-	(*s).start = time_now(s);
-	(*s).last_meal = (*s).start;
 	i  = s->index;
 	if (i + 1 == (s->args)->number_of_philosophers)
 		n = 0;
 	else
 		n = i + 1;
+	(*s).start = time_now(s);
+	(*s).last_meal = (*s).start;
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).args->fork)[i]));

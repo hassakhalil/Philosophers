@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/06/25 20:11:44 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/07/31 02:18:58 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,32 @@ int	ft_atoi(const char *nptr)
 
 void	print(t_philo *s, int state, int i)
 {
-	pthread_mutex_lock(&((s->args)->print_logs));
 	if (state == 0)
+	{
+		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d has taken a fork\n", time_now(s) - (s->start), i + 1);
+	}
 	else if (state == 1)
 	{
+		pthread_mutex_lock(&((s->args)->print_logs));
 		s->last_meal = time_now(s);
 		printf("%lld %d is eating\n", time_now(s) - (s->start) , i + 1);
 	}
 	else if (state == 2)
+	{
+		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d is sleeping\n", time_now(s) - (s->start), i + 1);
+	}
 	else if (state == 3)
+	{
+		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d is thinking\n", time_now(s) - (s->start), i + 1);
+	}
 	else
-		printf("%lld %d died\n", s->time_of_death, i + 1);
+	{
+		pthread_mutex_lock(&((s->args)->print_logs));
+		printf("%lld %d died\n", time_now(s) - (s->start), i + 1);
+	}
 	if (state != 4)
 		pthread_mutex_unlock(&((s->args)->print_logs));
 }
@@ -84,8 +96,7 @@ long long	time_now(t_philo *s)
 
 void	supervisor(t_philo *s)
 {
-	s->time_of_death = time_now(s) - (s->last_meal) - s->args->time_to_die;
-	if (time_now(s) - (s->last_meal) >=  s->args->time_to_die)
+	if ((time_now(s) - (s->last_meal)) >  s->args->time_to_die)
 	{
 		print(s, 4, s->index);
 		exit(0);
