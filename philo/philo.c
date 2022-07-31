@@ -24,8 +24,9 @@ void *routine(void *philo)
 		n = 0;
 	else
 		n = i + 1;
-	(*s).start = time_now(s);
-	(*s).last_meal = (*s).start;
+	//(*s).start = time_now(s);
+	//(*s).last_meal = (*s).start;
+	printf("start value == %lld\n" ,s->start);
 	while (1)
 	{
 		pthread_mutex_lock(&(((*s).args->fork)[i]));
@@ -75,6 +76,8 @@ int	main(int argc, char *argv[])
 	while (i < (*args).number_of_philosophers)
 	{
 		(philo[i]).index = i;
+		(philo[i]).start = time_now(&philo[i]);
+		(philo[i]).last_meal = (philo[i]).start;
 		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))
 		{
 			return (-1);
