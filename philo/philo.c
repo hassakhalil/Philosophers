@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/07/31 20:12:31 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:56:00 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void *routine(void *philo)
 	s = (t_philo *)philo;
 	while (1)
 	{
+		if (s->meals == s->args->number_of_times_each_philosopher_must_eat)
+			return (0);
 		pthread_mutex_lock(&(((*s).args->fork)[s->left]));
 		print(s, 0);
 		pthread_mutex_lock(&(((*s).args->fork)[s->right]));
 		print(s, 0);
 		print(s, 1);
-		usleep(((s->args)->time_to_eat) * 1000);
+		usleep(((s->args)->time_to_eat) *1000);
 		pthread_mutex_unlock(&(((*s).args->fork)[s->left]));
 		pthread_mutex_unlock(&(((*s).args->fork)[s->right]));
 		print(s, 2);
@@ -38,6 +40,7 @@ int main(int argc, char *argv[])
 	t_philo *philo;
 	int i;
 	long long time;
+	int			flag = 0;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
@@ -50,6 +53,7 @@ int main(int argc, char *argv[])
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
 		(*args).number_of_times_each_philosopher_must_eat  = -1;
+	(*args).done = 0;
 	philo = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
 	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
 	i = 0;
@@ -80,6 +84,8 @@ int main(int argc, char *argv[])
 		(philo[i]).last_meal = time;
 		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))
 		{
+			free_args(args);
+			free_philo(philo);
 			return (-1);
 		}
 		usleep(100);
@@ -90,9 +96,12 @@ int main(int argc, char *argv[])
 		i = 0;
 		while (i < args->number_of_philosophers)
 		{
-			supervisor(&philo[i]);
+			if(supervisor(&philo[i]))
+				flag = 1;
 			i++;
 		}
+		if (flag == 1)
+			break;
 		usleep(5000);
 	}
 	i = 0;
@@ -100,6 +109,8 @@ int main(int argc, char *argv[])
 	{
 		if (pthread_join((philo[i]).th, NULL))
 		{
+			free_args(args);
+			free_philo(philo);
 			return (-1);
 		}
 		i++;
@@ -111,5 +122,7 @@ int main(int argc, char *argv[])
 		i++;
 	}
 	pthread_mutex_destroy(&((*args).print_logs));
+	//free_args(args);
+	//free_philo(philo);
 	return (0);
 }

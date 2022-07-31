@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/07/31 02:19:33 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:45:49 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_arguments
     int time_to_eat;
     int time_to_sleep;
     int number_of_times_each_philosopher_must_eat;
-    int index;
+    int done;
     pthread_mutex_t *fork;
     pthread_mutex_t print_logs;
 }   t_arguments;
@@ -48,5 +48,7 @@ int     check_for_errors(int argc, char *argv[]);
 int     ft_atoi(const char *nptr);
 void    print(t_philo *s, int statemake);
 long long	time_now(t_philo *s);
-void	supervisor(t_philo*s);
+int     	supervisor(t_philo*s);
+void    free_args(t_arguments *s);
+void    free_philo(t_philo *s);
 #endif

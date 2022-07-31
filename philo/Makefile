@@ -6,7 +6,7 @@
 #    By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/15 04:59:55 by hkhalil           #+#    #+#              #
-#    Updated: 2022/06/23 17:34:06 by hkhalil          ###   ########.fr        #
+#    Updated: 2022/07/31 21:23:00 by hkhalil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = philo.c check_for_errors.c utils.c
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lpthread

@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/07/31 02:18:58 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:48:01 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	print(t_philo *s, int state)
 	}
 	else if (state == 1)
 	{
-		if (s->args->number_of_times_each_philosopher_must_eat == s->meals)
-			exit (100);
 		s->meals++;
 		s->last_meal = time_now(s);
 		pthread_mutex_lock(&((s->args)->print_logs));
@@ -99,11 +97,41 @@ long long	time_now(t_philo *s)
 	return (1000 * ((s->tp).tv_sec) +  ((s->tp).tv_usec) / 1000);
 }
 
-void	supervisor(t_philo *s)
+int	supervisor(t_philo *s)
 {
 	if ((time_now(s) - (s->last_meal)) >  s->args->time_to_die)
 	{
-		print(s, 4);
-		exit(0);
+		if (s->args->done == s->args->number_of_philosophers)
+			return (1);
+		if (s->meals == s->args->number_of_times_each_philosopher_must_eat)
+		{
+			(s->args->done)++;
+			return (0);
+		}
+		else
+		{
+			print(s, 4);
+			return (-1);
+		}
 	}
+	return (0);
+}
+
+void	free_args(t_arguments *s)
+{
+	free(s->fork);
+	free(s);
+}
+
+void	free_philo(t_philo *s)
+{
+	int	i;
+
+	i = 0;
+	while (i < (s[i]).args->number_of_philosophers)
+	{
+		free(s[i].args);
+		i++;
+	}
+	free(s);
 }
