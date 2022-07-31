@@ -46,7 +46,7 @@ typedef struct s_philo
 
 int     check_for_errors(int argc, char *argv[]);
 int     ft_atoi(const char *nptr);
-void    print(t_philo *s, int state);
+void    print(t_philo *s, int statemake);
 long long	time_now(t_philo *s);
 void	supervisor(t_philo*s);
 #endif
