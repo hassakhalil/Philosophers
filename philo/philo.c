@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/07/31 02:30:58 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/07/31 02:41:47 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	main(int argc, char *argv[])
 			supervisor(&philo[i]);
 			i++;
 		}
+		usleep(5000);
 	}
 	i = 0;
 	while (i < (*args).number_of_philosophers)
