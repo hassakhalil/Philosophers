@@ -62,30 +62,32 @@ void	print(t_philo *s, int state, int i)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d has taken a fork\n", time_now(s) - s->start, i + 1);
+		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 1)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
 		s->last_meal = time_now(s);
 		printf("%lld %d is eating\n", time_now(s) - s->start , i + 1);
+		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 2)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d is sleeping\n", time_now(s) - s->start, i + 1);
+		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 3)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d is thinking\n", time_now(s) - s->start, i + 1);
+		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d died\n", time_now(s) - s->start, i + 1);
 	}
-	if (state != 4)
-		pthread_mutex_unlock(&((s->args)->print_logs));
 }
 
 long long	time_now(t_philo *s)
