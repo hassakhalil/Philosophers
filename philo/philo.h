@@ -33,6 +33,8 @@ typedef struct s_arguments
 typedef struct s_philo
 {
     int             index;
+    int             left;
+    int             right;
     pthread_t	    th;
     struct timeval tp;
     long long       start;

@@ -14,37 +14,32 @@
 
 void *routine(void *philo)
 {
-	t_philo 	*s;
-	int			n;
-	int			i;
+	t_philo *s;
+	int i;
 
 	s = (t_philo *)philo;
-	i  = s->index;
-	if (i + 1 == (s->args)->number_of_philosophers)
-		n = 0;
-	else
-		n = i + 1;
+	i = s->index;
 	while (1)
 	{
-		pthread_mutex_lock(&(((*s).args->fork)[i]));
+		pthread_mutex_lock(&(((*s).args->fork)[s->left]));
 		print(s, 0, i);
-		pthread_mutex_lock(&(((*s).args->fork)[n]));
+		pthread_mutex_lock(&(((*s).args->fork)[s->right]));
 		print(s, 0, i);
 		print(s, 1, i);
 		usleep(((s->args)->time_to_eat) * 1000);
-		pthread_mutex_unlock(&(((*s).args->fork)[i]));
-		pthread_mutex_unlock(&(((*s).args->fork)[n]));
+		pthread_mutex_unlock(&(((*s).args->fork)[s->left]));
+		pthread_mutex_unlock(&(((*s).args->fork)[s->right]));
 		print(s, 2, i);
 		usleep((s->args->time_to_sleep) * 1000);
 		print(s, 3, i);
 	}
 }
-int	main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	t_arguments *args;
-	t_philo		*philo;
-	int			i;
-	long long	time;
+	t_philo *philo;
+	int i;
+	long long time;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
@@ -75,6 +70,11 @@ int	main(int argc, char *argv[])
 	while (i < (*args).number_of_philosophers)
 	{
 		(philo[i]).index = i;
+		if (i == args->number_of_philosophers - 1)
+			(philo[i]).right = 0;
+		else
+			(philo[i]).right = i + 1;
+		(philo[i]).left = i;
 		(philo[i]).start = time;
 		(philo[i]).last_meal = time;
 		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))
