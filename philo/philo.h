@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 16:50:33 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 17:48:58 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 
 typedef struct s_arguments
 {
-    int number_of_philosophers;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int number_of_times_each_philosopher_must_eat;
-    int done;
+    int             number_of_philosophers;
+    int             time_to_die;
+    int             time_to_eat;
+    int             time_to_sleep;
+    int             number_of_times_each_philosopher_must_eat;
+    int             done;
     pthread_mutex_t *fork;
     pthread_mutex_t print_logs;
     pthread_mutex_t eating;
@@ -44,12 +44,11 @@ typedef struct s_philo
     t_arguments     *args;
 }   t_philo;
 
-
-int     check_for_errors(int argc, char *argv[]);
-int     ft_atoi(const char *nptr);
-void    print(t_philo *s, int statemake);
-long long	time_now(t_philo *s);
+int         check_for_errors(int argc, char *argv[]);
+int         ft_atoi(const char *nptr);
+void        print(t_philo *s, int statemake);
+long long   time_now(t_philo *s);
 int     	supervisor(t_philo*s);
-void    free_args(t_arguments *s);
-void    free_philo(t_philo *s);
+void        free_args(t_arguments *s);
+void        free_philo(t_philo *s);
 #endif

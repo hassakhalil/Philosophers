@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 17:15:14 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 17:47:30 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	print(t_philo *s, int state)
 	if (state == 0)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
-		printf("%lld %d has taken a fork\n", time_now(s) - s->start, s->index + 1);
+		printf("%lld %d has taken a fork\n",
+			time_now(s) - s->start, s->index + 1);
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 1)
@@ -70,7 +71,7 @@ void	print(t_philo *s, int state)
 		s->last_meal = time_now(s);
 		pthread_mutex_lock(&((s->args)->print_logs));
 		pthread_mutex_lock(&((s->args)->eating));
-		printf("%lld %d is eating\n", time_now(s) - s->start , s->index + 1);
+		printf("%lld %d is eating\n", time_now(s) - s->start, s->index + 1);
 		pthread_mutex_unlock(&((s->args)->eating));
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
@@ -91,19 +92,18 @@ void	print(t_philo *s, int state)
 		pthread_mutex_lock(&((s->args)->eating));
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d died\n", time_now(s) - s->start, s->index + 1);
-		
 	}
 }
 
 long long	time_now(t_philo *s)
 {
 	gettimeofday(&(s->tp), NULL);
-	return (1000 * ((s->tp).tv_sec) +  ((s->tp).tv_usec) / 1000);
+	return (1000 * ((s->tp).tv_sec) + ((s->tp).tv_usec) / 1000);
 }
 
 int	supervisor(t_philo *s)
 {
-	if ((time_now(s) - (s->last_meal)) >  s->args->time_to_die)
+	if ((time_now(s) - (s->last_meal)) > s->args->time_to_die)
 	{
 		if (s->args->done == s->args->number_of_philosophers)
 			return (1);
