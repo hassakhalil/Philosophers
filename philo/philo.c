@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 16:51:16 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 17:14:07 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 		(philo[i]).last_meal = time;
 		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))
 		{
-			free_philo(philo);
+			free(philo);
 			free_args(args);
 			return (-1);
 		}
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 		i++;
 	}
 	pthread_mutex_destroy(&((*args).print_logs));
-	free_philo(philo);
+	free(philo);
 	free_args(args);
 	return (0);
 }

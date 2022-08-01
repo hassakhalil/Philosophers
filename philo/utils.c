@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 16:57:54 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 17:15:14 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,5 @@ int	supervisor(t_philo *s)
 void	free_args(t_arguments *s)
 {
 	free(s->fork);
-	free(s);
-}
-
-void	free_philo(t_philo *s)
-{
 	free(s);
 }
