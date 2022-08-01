@@ -6,15 +6,15 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 17:14:07 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 17:31:23 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void *routine(void *philo)
+void	*routine(void *philo)
 {
-	t_philo *s;
+	t_philo	*s;
 
 	s = (t_philo *)philo;
 	while (1)
@@ -26,7 +26,7 @@ void *routine(void *philo)
 		pthread_mutex_lock(&(((*s).args->fork)[s->right]));
 		print(s, 0);
 		print(s, 1);
-		usleep(((s->args)->time_to_eat) *1000);
+		usleep(((s->args)->time_to_eat) * 1000);
 		pthread_mutex_unlock(&(((*s).args->fork)[s->left]));
 		pthread_mutex_unlock(&(((*s).args->fork)[s->right]));
 		print(s, 2);
@@ -34,13 +34,14 @@ void *routine(void *philo)
 		print(s, 3);
 	}
 }
-int main(int argc, char *argv[])
+
+int	main(int argc, char *argv[])
 {
-	t_arguments *args;
-	t_philo *philo;
-	int i;
-	long long time;
-	int			flag = 0;
+	t_arguments	*args;
+	t_philo		*philo;
+	int			i;
+	long long	time;
+	int			flag;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
@@ -52,10 +53,11 @@ int main(int argc, char *argv[])
 	if (argc == 6)
 		(*args).number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
-		(*args).number_of_times_each_philosopher_must_eat  = -1;
+		(*args).number_of_times_each_philosopher_must_eat = -1;
 	(*args).done = 0;
 	philo = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
-	(*args).fork = malloc(sizeof(pthread_mutex_t) * (*args).number_of_philosophers);
+	(*args).fork = malloc(sizeof(pthread_mutex_t)
+			* (*args).number_of_philosophers);
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
@@ -95,17 +97,18 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		i = 0;
+		flag = 0;
 		while (i < args->number_of_philosophers)
 		{
-			if(supervisor(&philo[i]))
+			if (supervisor(&philo[i]))
 			{
 				flag = 1;
-				break;
+				break ;
 			}
 			i++;
 		}
 		if (flag == 1)
-			break;
+			break ;
 		usleep(5000);
 	}
 	i = 0;
