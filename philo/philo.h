@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:07:23 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:19:24 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ long long	time_now(t_philo *s);
 int			supervisor(t_philo*s);
 void		free_args(t_arguments *s);
 void		free_philo(t_philo *s);
+void    destroy_mutex(t_arguments *args);
 #endif

@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:12:33 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:18:59 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,3 +110,16 @@ int start_philo(t_philo **philo, t_arguments *args,  void *(*routine)(void *))
     return (0);
 }
 
+void    destroy_mutex(t_arguments *args)
+{
+    int i;
+
+    i = 0;
+	while (i < (*args).number_of_philosophers)
+	{
+		pthread_mutex_destroy(&(((*args).fork)[i]));
+		i++;
+	}
+	pthread_mutex_destroy(&((*args).print_logs));
+	pthread_mutex_destroy(&((*args).eating));
+}
