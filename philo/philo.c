@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 19:52:14 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:10:23 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,16 @@ int	main(int argc, char *argv[])
 	t_arguments	*args;
 	t_philo		*philo;
 	int			i;
-	long long	time;
 	int			flag;
 
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
 	fill_args(&args, argc, argv);
 	fill_philo(&philo, args);
-	i = 0;
-	time = time_now(&philo[i]);
-	while (i < (*args).number_of_philosophers)
+	if (start_philo(&philo, args, &routine))
 	{
-		(philo[i]).start = time;
-		(philo[i]).last_meal = time;
-		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))
-		{
-			free(philo);
-			free_args(args);
-			return (-1);
-		}
-		usleep(100);
-		i++;
+		//destroy mutexes
+		return(-1);
 	}
 	while (1)
 	{

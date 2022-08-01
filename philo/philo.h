@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 19:50:33 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:07:23 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 int			check_for_errors(int argc, char *argv[]);
 void    fill_args(t_arguments **args, int argc, char *argv[]);
 void    fill_philo(t_philo **philo, t_arguments *args);
+int start_philo(t_philo **philo, t_arguments *args,  void *(*routine)(void *));
 int			ft_atoi(const char *nptr);
 void		print(t_philo *s, int statemake);
 long long	time_now(t_philo *s);

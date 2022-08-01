@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 19:50:15 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:12:33 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,27 @@ void    fill_philo(t_philo **philo, t_arguments *args)
 		i++;
 	}
 }
+
+int start_philo(t_philo **philo, t_arguments *args,  void *(*routine)(void *))
+{
+    int     i;
+    long long	time;
+
+    i = 0;
+	time = time_now(&(*philo)[i]);
+	while (i < args->number_of_philosophers)
+	{
+		((*philo)[i]).start = time;
+		((*philo)[i]).last_meal = time;
+		if (pthread_create(&((*philo)[i].th), NULL, routine, &(*philo)[i]))
+		{
+			free(philo);
+			free_args(args);
+			return (-1);
+		}
+		usleep(100);
+		i++;
+	}
+    return (0);
+}
+
