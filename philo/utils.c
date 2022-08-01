@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 01:56:34 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 16:57:54 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ void	print(t_philo *s, int state)
 		s->meals++;
 		s->last_meal = time_now(s);
 		pthread_mutex_lock(&((s->args)->print_logs));
+		pthread_mutex_lock(&((s->args)->eating));
 		printf("%lld %d is eating\n", time_now(s) - s->start , s->index + 1);
+		pthread_mutex_unlock(&((s->args)->eating));
 		pthread_mutex_unlock(&((s->args)->print_logs));
 	}
 	else if (state == 2)
@@ -86,6 +88,7 @@ void	print(t_philo *s, int state)
 	}
 	else
 	{
+		pthread_mutex_lock(&((s->args)->eating));
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d died\n", time_now(s) - s->start, s->index + 1);
 		

@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 16:46:37 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 16:51:16 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
 		i++;
 	}
 	pthread_mutex_init(&((*args).print_logs), NULL);
+	pthread_mutex_init(&((*args).eating), NULL);
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
