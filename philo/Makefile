@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hkhalil <hkhalil@student.42.fr>            +#+  +:+       +#+         #
+#    By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/15 04:59:55 by hkhalil           #+#    #+#              #
-#    Updated: 2022/07/31 21:23:00 by hkhalil          ###   ########.fr        #
+#    Updated: 2022/08/01 18:52:22 by hkhalil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = philo
 
-SRC = philo.c check_for_errors.c utils.c
+SRC = philo.c check_for_errors.c utils.c utils1.c
 
 OBJ = $(SRC:.c=.o)
 
