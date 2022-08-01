@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 00:56:00 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 16:46:37 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int main(int argc, char *argv[])
 		(philo[i]).last_meal = time;
 		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))
 		{
-			free_args(args);
 			free_philo(philo);
+			free_args(args);
 			return (-1);
 		}
 		usleep(100);
@@ -97,7 +97,10 @@ int main(int argc, char *argv[])
 		while (i < args->number_of_philosophers)
 		{
 			if(supervisor(&philo[i]))
+			{
 				flag = 1;
+				break;
+			}
 			i++;
 		}
 		if (flag == 1)
@@ -107,22 +110,11 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
-		if (pthread_join((philo[i]).th, NULL))
-		{
-			free_args(args);
-			free_philo(philo);
-			return (-1);
-		}
-		i++;
-	}
-	i = 0;
-	while (i < (*args).number_of_philosophers)
-	{
 		pthread_mutex_destroy(&(((*args).fork)[i]));
 		i++;
 	}
 	pthread_mutex_destroy(&((*args).print_logs));
-	//free_args(args);
-	//free_philo(philo);
+	free_philo(philo);
+	free_args(args);
 	return (0);
 }

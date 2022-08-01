@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 00:48:01 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 01:56:34 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	print(t_philo *s, int state)
 	{
 		pthread_mutex_lock(&((s->args)->print_logs));
 		printf("%lld %d died\n", time_now(s) - s->start, s->index + 1);
+		
 	}
 }
 
@@ -104,10 +105,7 @@ int	supervisor(t_philo *s)
 		if (s->args->done == s->args->number_of_philosophers)
 			return (1);
 		if (s->meals == s->args->number_of_times_each_philosopher_must_eat)
-		{
 			(s->args->done)++;
-			return (0);
-		}
 		else
 		{
 			print(s, 4);
@@ -125,13 +123,5 @@ void	free_args(t_arguments *s)
 
 void	free_philo(t_philo *s)
 {
-	int	i;
-
-	i = 0;
-	while (i < (s[i]).args->number_of_philosophers)
-	{
-		free(s[i].args);
-		i++;
-	}
 	free(s);
 }
