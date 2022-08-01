@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 19:21:34 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 19:52:14 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,11 @@ int	main(int argc, char *argv[])
 	if (check_for_errors(argc, argv) == -1)
 		return (-1);
 	fill_args(&args, argc, argv);
-	philo = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
-	i = 0;
-	while (i < (*args).number_of_philosophers)
-	{
-		philo[i].args = args;
-		i++;
-	}
+	fill_philo(&philo, args);
 	i = 0;
 	time = time_now(&philo[i]);
 	while (i < (*args).number_of_philosophers)
 	{
-		(philo[i]).index = i;
-		(philo[i]).meals = 0;
-		if (i == args->number_of_philosophers - 1)
-			(philo[i]).right = 0;
-		else
-			(philo[i]).right = i + 1;
-		(philo[i]).left = i;
 		(philo[i]).start = time;
 		(philo[i]).last_meal = time;
 		if (pthread_create(&(philo[i].th), NULL, &routine, &philo[i]))

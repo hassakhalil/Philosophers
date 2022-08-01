@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 19:18:50 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 19:50:15 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,26 @@ void    fill_args(t_arguments **args, int argc, char *argv[])
 	while (i < (**args).number_of_philosophers)
 	{
 		pthread_mutex_init(&(((**args).fork)[i]), NULL);
+		i++;
+	}
+}
+
+void    fill_philo(t_philo **philo, t_arguments *args)
+{
+    int i;
+
+    (*philo) = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
+	i = 0;
+	while (i < (*args).number_of_philosophers)
+	{
+        (*philo)[i].args = args;
+		((*philo)[i]).index = i;
+		((*philo)[i]).meals = 0;
+		if (i == args->number_of_philosophers - 1)
+			((*philo)[i]).right = 0;
+		else
+			((*philo)[i]).right = i + 1;
+		((*philo)[i]).left = i;
 		i++;
 	}
 }
