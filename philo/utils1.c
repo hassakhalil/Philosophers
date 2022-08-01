@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:18:59 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:35:03 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ int	supervisor(t_philo *s)
 	return (0);
 }
 
-void	free_args(t_arguments *s)
+void	free_all(t_arguments *s, t_philo *philo)
 {
 	free(s->fork);
 	free(s);
+    free(philo);
 }
 
 void    fill_args(t_arguments **args, int argc, char *argv[])
@@ -99,11 +100,7 @@ int start_philo(t_philo **philo, t_arguments *args,  void *(*routine)(void *))
 		((*philo)[i]).start = time;
 		((*philo)[i]).last_meal = time;
 		if (pthread_create(&((*philo)[i].th), NULL, routine, &(*philo)[i]))
-		{
-			free(philo);
-			free_args(args);
 			return (-1);
-		}
 		usleep(100);
 		i++;
 	}
@@ -122,4 +119,28 @@ void    destroy_mutex(t_arguments *args)
 	}
 	pthread_mutex_destroy(&((*args).print_logs));
 	pthread_mutex_destroy(&((*args).eating));
+}
+
+void    supervisor_inside(t_philo *philo, t_arguments *args)
+{
+    int			flag;
+    int			i;
+
+    while (1)
+	{
+		i = 0;
+		flag = 0;
+		while (i < args->number_of_philosophers)
+		{
+			if (supervisor(&(philo)[i]))
+			{
+				flag = 1;
+				break ;
+			}
+			i++;
+		}
+		if (flag == 1)
+			break ;
+		usleep(5000);
+	}
 }
