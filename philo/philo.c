@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:01:55 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:35:26 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:38:53 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ int	main(int argc, char *argv[])
 	fill_philo(&philo, args);
 	if (start_philo(&philo, args, &routine))
 	{
-		free_all(args, philo);
-		destroy_mutex(args);
+		clean(args, philo);
 		return (-1);
 	}
 	supervisor_inside(philo, args);
-	destroy_mutex(args);
-	free_all(args, philo);
+	clean(args, philo);
 	return (0);
 }

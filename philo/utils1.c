@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:35:03 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:38:02 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,10 @@ void    supervisor_inside(t_philo *philo, t_arguments *args)
 			break ;
 		usleep(5000);
 	}
+}
+
+void    clean(t_arguments *args, t_philo *philo)
+{
+   	destroy_mutex(args);
+	free_all(args, philo); 
 }

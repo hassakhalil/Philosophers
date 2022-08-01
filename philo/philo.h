@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:33:14 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/01 20:38:18 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ int			supervisor(t_philo*s);
 void		free_all(t_arguments *s, t_philo *philo);
 void    destroy_mutex(t_arguments *args);
 void    supervisor_inside(t_philo *philo, t_arguments *args);
+void    clean(t_arguments *args, t_philo *philo);
 #endif
