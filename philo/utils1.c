@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:38:02 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/02 00:20:53 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	free_all(t_arguments *s, t_philo *philo)
 {
 	free(s->fork);
 	free(s);
-    free(philo);
+	free(philo);
 }
 
-void    fill_args(t_arguments **args, int argc, char *argv[])
+void	fill_args(t_arguments **args, int argc, char *argv[])
 {
-    int i;
+	int	i;
 
-    (*args) = malloc(sizeof(t_arguments));
+	(*args) = malloc(sizeof(t_arguments));
 	(**args).number_of_philosophers = ft_atoi(argv[1]);
 	(**args).time_to_die = ft_atoi(argv[2]);
 	(**args).time_to_eat = ft_atoi(argv[3]);
@@ -58,9 +58,9 @@ void    fill_args(t_arguments **args, int argc, char *argv[])
 	(**args).done = 0;
 	(**args).fork = malloc(sizeof(pthread_mutex_t)
 			* (**args).number_of_philosophers);
-    pthread_mutex_init(&((**args).print_logs), NULL);
+	pthread_mutex_init(&((**args).print_logs), NULL);
 	pthread_mutex_init(&((**args).eating), NULL);
-    i = 0;
+	i = 0;
 	while (i < (**args).number_of_philosophers)
 	{
 		pthread_mutex_init(&(((**args).fork)[i]), NULL);
@@ -68,15 +68,15 @@ void    fill_args(t_arguments **args, int argc, char *argv[])
 	}
 }
 
-void    fill_philo(t_philo **philo, t_arguments *args)
+void	fill_philo(t_philo **philo, t_arguments *args)
 {
-    int i;
+	int	i;
 
-    (*philo) = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
+	(*philo) = malloc(sizeof(t_philo) * ((*args).number_of_philosophers));
 	i = 0;
 	while (i < (*args).number_of_philosophers)
 	{
-        (*philo)[i].args = args;
+		(*philo)[i].args = args;
 		((*philo)[i]).index = i;
 		((*philo)[i]).meals = 0;
 		if (i == args->number_of_philosophers - 1)
@@ -86,67 +86,4 @@ void    fill_philo(t_philo **philo, t_arguments *args)
 		((*philo)[i]).left = i;
 		i++;
 	}
-}
-
-int start_philo(t_philo **philo, t_arguments *args,  void *(*routine)(void *))
-{
-    int     i;
-    long long	time;
-
-    i = 0;
-	time = time_now(&(*philo)[i]);
-	while (i < args->number_of_philosophers)
-	{
-		((*philo)[i]).start = time;
-		((*philo)[i]).last_meal = time;
-		if (pthread_create(&((*philo)[i].th), NULL, routine, &(*philo)[i]))
-			return (-1);
-		usleep(100);
-		i++;
-	}
-    return (0);
-}
-
-void    destroy_mutex(t_arguments *args)
-{
-    int i;
-
-    i = 0;
-	while (i < (*args).number_of_philosophers)
-	{
-		pthread_mutex_destroy(&(((*args).fork)[i]));
-		i++;
-	}
-	pthread_mutex_destroy(&((*args).print_logs));
-	pthread_mutex_destroy(&((*args).eating));
-}
-
-void    supervisor_inside(t_philo *philo, t_arguments *args)
-{
-    int			flag;
-    int			i;
-
-    while (1)
-	{
-		i = 0;
-		flag = 0;
-		while (i < args->number_of_philosophers)
-		{
-			if (supervisor(&(philo)[i]))
-			{
-				flag = 1;
-				break ;
-			}
-			i++;
-		}
-		if (flag == 1)
-			break ;
-		usleep(5000);
-	}
-}
-
-void    clean(t_arguments *args, t_philo *philo)
-{
-   	destroy_mutex(args);
-	free_all(args, philo); 
 }

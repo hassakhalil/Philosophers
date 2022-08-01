@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 20:38:18 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/02 00:12:34 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ typedef struct s_philo
 }	t_philo;
 
 int			check_for_errors(int argc, char *argv[]);
-void    fill_args(t_arguments **args, int argc, char *argv[]);
-void    fill_philo(t_philo **philo, t_arguments *args);
-int start_philo(t_philo **philo, t_arguments *args,  void *(*routine)(void *));
+void		fill_args(t_arguments **args, int argc, char *argv[]);
+void		fill_philo(t_philo **philo, t_arguments *args);
+int			start_philo(t_philo **philo, t_arguments *args,
+				void *(*routine)(void *));
 int			ft_atoi(const char *nptr);
 void		print(t_philo *s, int statemake);
 long long	time_now(t_philo *s);
 int			supervisor(t_philo*s);
 void		free_all(t_arguments *s, t_philo *philo);
-void    destroy_mutex(t_arguments *args);
-void    supervisor_inside(t_philo *philo, t_arguments *args);
-void    clean(t_arguments *args, t_philo *philo);
+void		destroy_mutex(t_arguments *args);
+void		supervisor_inside(t_philo *philo, t_arguments *args);
+void		clean(t_arguments *args, t_philo *philo);
 #endif
