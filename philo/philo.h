@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 04:09:46 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/03 00:05:43 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/03 00:08:27 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_arguments
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print_logs;
 	pthread_mutex_t	eating;
-	pthread_mutex_t	superv;
+	pthread_mutex_t	meal_lock;
 }	t_arguments;
 
 typedef struct s_philo
