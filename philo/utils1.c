@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/03 00:08:27 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/03 00:19:44 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	supervisor(t_philo *s)
 		if (s->args->done == s->args->number_of_philosophers)
 			return (1);
 		if (s->meals == s->args->number_of_times_each_philosopher_must_eat)
+		{
+			pthread_join(s->th, NULL);
 			(s->args->done)++;
+		}
 		else
 		{
 			print(s, 4);
