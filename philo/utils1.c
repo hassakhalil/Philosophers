@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:38:12 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/02 00:20:53 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/03 00:04:21 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ long long	time_now(t_philo *s)
 
 int	supervisor(t_philo *s)
 {
+	pthread_mutex_lock(&(s->args->superv));
 	if ((time_now(s) - (s->last_meal)) > s->args->time_to_die)
 	{
+		pthread_mutex_unlock(&(s->args->superv));
 		if (s->args->done == s->args->number_of_philosophers)
 			return (1);
 		if (s->meals == s->args->number_of_times_each_philosopher_must_eat)
@@ -32,6 +34,7 @@ int	supervisor(t_philo *s)
 			return (-1);
 		}
 	}
+	pthread_mutex_unlock(&(s->args->superv));
 	return (0);
 }
 
@@ -60,6 +63,7 @@ void	fill_args(t_arguments **args, int argc, char *argv[])
 			* (**args).number_of_philosophers);
 	pthread_mutex_init(&((**args).print_logs), NULL);
 	pthread_mutex_init(&((**args).eating), NULL);
+	pthread_mutex_init(&((**args).superv), NULL);
 	i = 0;
 	while (i < (**args).number_of_philosophers)
 	{

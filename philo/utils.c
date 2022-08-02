@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 01:23:41 by hkhalil           #+#    #+#             */
-/*   Updated: 2022/08/01 19:01:02 by hkhalil          ###   ########.fr       */
+/*   Updated: 2022/08/03 00:05:05 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ void	print(t_philo *s, int state)
 	else if (state == 1)
 	{
 		s->meals++;
+		pthread_mutex_lock(&(s->args->superv));
 		s->last_meal = time_now(s);
+		pthread_mutex_unlock(&(s->args->superv));
 		pthread_mutex_lock(&((s->args)->eating));
 		print_h(s, state, "is eating");
 		pthread_mutex_unlock(&((s->args)->eating));
